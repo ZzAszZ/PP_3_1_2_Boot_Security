@@ -15,7 +15,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 
-@Configuration
 @EnableWebSecurity
 @ComponentScan(basePackages = "ru.kata.spring.boot_security.demo.configs")
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {

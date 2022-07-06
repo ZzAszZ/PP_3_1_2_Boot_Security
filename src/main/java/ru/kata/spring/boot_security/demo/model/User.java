@@ -11,7 +11,6 @@ import java.util.Set;
 
 @Entity
 @Table(name = "users")
-
 public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,7 +23,7 @@ public class User implements UserDetails {
     private String email;
 
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany
     @JoinTable(name = "users_roles",
             joinColumns = @JoinColumn(name="user_id"),
             inverseJoinColumns = @JoinColumn(name="role_id"))
@@ -97,5 +96,29 @@ public class User implements UserDetails {
 
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof User)) return false;
+
+        User user = (User) o;
+
+        if (!getId().equals(user.getId())) return false;
+        if (!getUsername().equals(user.getUsername())) return false;
+        if (!getPassword().equals(user.getPassword())) return false;
+        if (!getEmail().equals(user.getEmail())) return false;
+        return getRoles().equals(user.getRoles());
+    }
+
+    @Override
+    public int hashCode() {
+        int result = getId().hashCode();
+        result = 31 * result + getUsername().hashCode();
+        result = 31 * result + getPassword().hashCode();
+        result = 31 * result + getEmail().hashCode();
+        result = 31 * result + getRoles().hashCode();
+        return result;
     }
 }

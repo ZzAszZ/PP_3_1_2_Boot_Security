@@ -33,14 +33,6 @@ public class UserController {
     }
 
 
-    public Set<Role> getRoles(String[] roles) {
-        Set<Role> roleSet = new HashSet<>();
-        for (String role : roles) {
-            roleSet.add((Role) roleRepository.findByName(role));
-        }
-        return roleSet;
-    }
-
     // Страница user.
     @GetMapping("/user")
     public String userInfo(Model model, Principal principal) {
@@ -68,7 +60,7 @@ public class UserController {
 
     @PostMapping("/user-create")
     public String createUser(@ModelAttribute("user") User user, @RequestParam(value = "role") String[] roles) {
-        user.setRoles(getRoles(roles));
+        user.setRoles(userService.getRoles(roles));
         userService.saveUser(user);
         return "redirect:/admin/";
     }
