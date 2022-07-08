@@ -4,23 +4,19 @@
 <title>Create user</title>
 </head>
 <body>
-<form action="#" th:action="@{/user-update}" th:object="${user}" method="post">
+<form action="#" th:action="@{/admin/user-update}" th:object="${user}" method="post">
     <label for="id">ID</label>
     <input readonly type="number" th:field="*{id}" id="id" placeholder="ID">
     <br/>
-
-    <label for="username">User Name</label>
+    <label for="username">Username</label>
     <input type="text" th:field="*{username}" id="username" placeholder="Username">
     <br/>
-
+    <label for="surname">Surname</label>
+    <input type="text" th:field="*{surname}" id="surname" placeholder="Surname">
+    <br/>
     <label for="password">Password</label>
     <input type="text" th:field="*{password}" id="password" placeholder="Password">
-    <br/>
 
-    <label for="email">E mail</label>
-    <input type="text" th:field="*{email}" id="email" placeholder="E mail">
-    <br/>
-    <br/>
     <label>
         <select size="3" name="role" id="roles" multiple="multiple">
             <option disabled>Roles:</option>
@@ -28,10 +24,9 @@
             <option selected value="ROLE_USER">USER</option>
         </select>
     </label>
-    <br/>
 
+    <br/>
     <input type="submit" value="Update User">
-    <a th:href="@{/logout}">Logout</a>
 </form>
 </body>
 </html>
