@@ -1,0 +1,48 @@
+package com.example.SpringBoot.model;
+
+
+import lombok.Data;
+
+import javax.persistence.*;
+import java.util.Collection;
+import java.util.Objects;
+
+
+@Entity
+@Data
+@Table(name= "users")
+public class User {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="id")
+    private long id;
+
+    @Column(name="username")
+    private String username;
+
+    @Column(name = "surname")
+    private String surname;
+
+    @Column(name = "password")
+    private String password;
+
+    @ManyToMany
+    @JoinTable(name= "users_roles",
+    joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name= "role_id")
+    )
+    private Collection<Role> roles;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof User)) return false;
+        User user = (User) o;
+        return getId() == user.getId() && Objects.equals(getUsername(), user.getUsername()) && Objects.equals(getSurname(), user.getSurname()) && Objects.equals(getPassword(), user.getPassword());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId(), getUsername(), getSurname(), getPassword());
+    }
+}
