@@ -58,8 +58,7 @@ public class UsersController {
     }
 
     @PostMapping("/admin/user-create")
-    public String createUser(User user, @RequestParam(value = "role") String[] roles){
-        user.setRoles(userService.getRoles(roles));
+    public String createUser(User user){
         userService.userAdd(user);
         return "redirect:/admin";
     }

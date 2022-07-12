@@ -80,7 +80,7 @@ public class UserServiceImpl implements  UserService, UserDetailsService {
         return roles.stream().map(role -> new SimpleGrantedAuthority(role.getName())).collect(Collectors.toList());
     }
 
-
+    @Override
     public Set<Role> getRoles(String[] roles){
         Set<Role> roleSet = new HashSet<>();
         for (String role : roles) {
@@ -88,7 +88,5 @@ public class UserServiceImpl implements  UserService, UserDetailsService {
         }
         return roleSet;
     }
-
-
 }
 
