@@ -56,7 +56,8 @@ public class UsersController {
     }
 
     @PostMapping("/admin/user-create")
-    public String createUser(User user){
+    public String createUser(User user, @RequestParam(value = "role") String[] roles){
+        user.setRoles(userService.getRoles(roles));
         userService.userAdd(user);
         return "redirect:/admin";
     }
@@ -75,7 +76,8 @@ public class UsersController {
     }
 
     @PostMapping("/admin/user-update")
-    public String updateUser(User user){
+    public String updateUser(User user, @RequestParam(value = "role") String[] roles){
+        user.setRoles(userService.getRoles(roles));
         userService.userAdd(user);
         return "redirect:/admin";
     }
