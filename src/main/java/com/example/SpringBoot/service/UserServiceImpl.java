@@ -59,25 +59,22 @@ public class UserServiceImpl implements  UserService, UserDetailsService {
 
     //Поиск Юзера по имени
     public User findByUsername(String username){
-        return userRepository.findByUsername(username);
+        return userRepository.getByUsername(username);
     }
 
     //Загрузка юзера
     @Override
     @Transactional(readOnly = true)
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = findByUsername(username);
+        User user = userRepository.getByUsername(username);
         if(user == null){
             throw new UsernameNotFoundException (String.format("User not found ", username));
         }
-        return  new org.springframework.security.core.userdetails.User(
-                user.getUsername(),
-                user.getPassword(),
-                getRoles(user.getRoles()));
+        return  user;
     }
 
     private Collection<? extends GrantedAuthority> getRoles(Collection<Role> roles) {
-        return roles.stream().map(role -> new SimpleGrantedAuthority(role.getName())).collect(Collectors.toList());
+       return roles.stream().map(role -> new SimpleGrantedAuthority(role.getName())).collect(Collectors.toList());
     }
 
     @Override
